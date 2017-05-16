@@ -33,5 +33,22 @@ public class WebTest
 		driver.quit();
 	}
 
+	@Test
+	public void closedCount() throws Exception
+	{
+		//Wait until web page with CLOSED studies are loaded
+		driver.get("http://www.checkbox.io/studies.html");
+		WebDriverWait waitTime = new WebDriverWait(driver, 15);
+		waitTime.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class='status']/span[.='CLOSED']")));
+		
+		//Store all closed survey web elements in a list
+		List<WebElement> closed = driver.findElements(By.xpath("//a[@class='status']/span[.='CLOSED']"));
+		
+		//Check if the size of the list is 5
+		assertNotNull(closed);
+		assertEquals(5, closed.size());
+	}
+	
+	
 
 }
